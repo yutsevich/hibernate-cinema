@@ -31,7 +31,7 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
             return session.createQuery(criteriaQuery.where(checkMovie, checkDate)).getResultList();
         } catch (Exception e) {
             throw new DataProcessingException("Can not get all available movie sessions "
-                    + "by movie_id = ... and date = ... ", e);
+                    + "by movie_id = " + movieId + " and date = " + date.toString(), e);
         }
     }
 
