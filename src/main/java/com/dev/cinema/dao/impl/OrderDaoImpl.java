@@ -9,7 +9,6 @@ import com.dev.cinema.model.User;
 import com.dev.cinema.util.HibernateUtil;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.JoinType;
@@ -22,7 +21,7 @@ import org.hibernate.Transaction;
 public class OrderDaoImpl implements OrderDao {
 
     @Override
-    public Optional<Order> add(List<Ticket> tickets, User user) {
+    public Order add(List<Ticket> tickets, User user) {
         Transaction transaction = null;
         Session session = null;
         Order order = new Order();
@@ -34,7 +33,7 @@ public class OrderDaoImpl implements OrderDao {
             order.setDateTime(LocalDateTime.now());
             session.save(order);
             transaction.commit();
-            return Optional.of(order);
+            return order;
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();

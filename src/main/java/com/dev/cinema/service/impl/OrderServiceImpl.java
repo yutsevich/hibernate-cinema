@@ -19,7 +19,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order completeOrder(ShoppingCart shoppingCart) {
-        Order order = orderDao.add(shoppingCart.getTickets(), shoppingCart.getUser()).get();
+        Order order = orderDao.add(shoppingCart.getTickets(), shoppingCart.getUser());
         shoppingCartService.clear(shoppingCart);
         return order;
     }
