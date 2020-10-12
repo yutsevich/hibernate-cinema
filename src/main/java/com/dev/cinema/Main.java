@@ -11,6 +11,7 @@ import com.dev.cinema.security.AuthenticationService;
 import com.dev.cinema.service.CinemaHallService;
 import com.dev.cinema.service.MovieService;
 import com.dev.cinema.service.MovieSessionService;
+import com.dev.cinema.service.OrderService;
 import com.dev.cinema.service.ShoppingCartService;
 import com.dev.cinema.service.UserService;
 import java.time.LocalDate;
@@ -97,5 +98,18 @@ public class Main {
         System.out.println(shoppingCartService.getByUser(testShoppingCart));
         shoppingCartService.clear(userShoppingCart);
         System.out.println(userShoppingCart);
+
+        User user1 = authenticationService.register("user1@gmail.com", "pass");
+        User user2 = authenticationService.register("user2@gmail.com", "pass");
+        System.out.println(userService.findByEmail("user1@gmail.com").toString());
+        try {
+            System.out.println(authenticationService.login("user2@gmail.com", "pass").toString());
+        } catch (AuthenticationException e) {
+            e.getMessage();
+        }
+        OrderService orderService
+                = (OrderService) injector.getInstance(OrderService.class);
+        orderService.completeOrder(shoppingCartService.getByUser(user1));
+        orderService.getOrderHistory(user1).forEach(System.out::println);
     }
 }
