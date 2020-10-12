@@ -5,7 +5,6 @@ import com.dev.cinema.lib.Injector;
 import com.dev.cinema.model.CinemaHall;
 import com.dev.cinema.model.Movie;
 import com.dev.cinema.model.MovieSession;
-import com.dev.cinema.model.ShoppingCart;
 import com.dev.cinema.model.User;
 import com.dev.cinema.security.AuthenticationService;
 import com.dev.cinema.service.CinemaHallService;
@@ -90,14 +89,6 @@ public class Main {
 
         ShoppingCartService shoppingCartService =
                 (ShoppingCartService) injector.getInstance(ShoppingCartService.class);
-        User userFromDb = userService.findByEmail("ranger@gmail.com").get();
-        ShoppingCart userShoppingCart = shoppingCartService.getByUser(testShoppingCart);
-        System.out.println(userShoppingCart);
-        shoppingCartService.addSession(movieSession2, testShoppingCart);
-        shoppingCartService.addSession(movieSession4, testShoppingCart);
-        System.out.println(shoppingCartService.getByUser(testShoppingCart));
-        shoppingCartService.clear(userShoppingCart);
-        System.out.println(userShoppingCart);
 
         User user1 = authenticationService.register("user1@gmail.com", "pass");
         User user2 = authenticationService.register("user2@gmail.com", "pass");
