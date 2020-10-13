@@ -54,6 +54,7 @@ public class OrderDaoImpl implements OrderDao {
                     .createQuery(Order.class);
             Root<Order> root = criteriaQuery.from(Order.class);
             root.fetch("tickets", JoinType.INNER);
+            criteriaQuery.distinct(true);
             Predicate checkUser = criteriaBuilder.equal(root.get("user"), user.getId());
             return session.createQuery(criteriaQuery.where(checkUser)).getResultList();
         } catch (Exception e) {
