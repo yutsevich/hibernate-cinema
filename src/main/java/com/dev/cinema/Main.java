@@ -5,12 +5,12 @@ import com.dev.cinema.lib.Injector;
 import com.dev.cinema.model.CinemaHall;
 import com.dev.cinema.model.Movie;
 import com.dev.cinema.model.MovieSession;
-import com.dev.cinema.model.ShoppingCart;
 import com.dev.cinema.model.User;
 import com.dev.cinema.security.AuthenticationService;
 import com.dev.cinema.service.CinemaHallService;
 import com.dev.cinema.service.MovieService;
 import com.dev.cinema.service.MovieSessionService;
+import com.dev.cinema.service.OrderService;
 import com.dev.cinema.service.ShoppingCartService;
 import com.dev.cinema.service.UserService;
 import java.time.LocalDate;
@@ -89,13 +89,18 @@ public class Main {
 
         ShoppingCartService shoppingCartService =
                 (ShoppingCartService) injector.getInstance(ShoppingCartService.class);
-        User userFromDb = userService.findByEmail("ranger@gmail.com").get();
-        ShoppingCart userShoppingCart = shoppingCartService.getByUser(testShoppingCart);
-        System.out.println(userShoppingCart);
-        shoppingCartService.addSession(movieSession2, testShoppingCart);
-        shoppingCartService.addSession(movieSession4, testShoppingCart);
-        System.out.println(shoppingCartService.getByUser(testShoppingCart));
-        shoppingCartService.clear(userShoppingCart);
-        System.out.println(userShoppingCart);
+
+        User user1 = authenticationService.register("user1@gmail.com", "pass");
+        User user2 = authenticationService.register("user2@gmail.com", "pass");
+        System.out.println(userService.findByEmail("user1@gmail.com").toString());
+        try {
+            System.out.println(authenticationService.login("user2@gmail.com", "pass").toString());
+        } catch (AuthenticationException e) {
+            e.getMessage();
+        }
+        OrderService orderService
+                = (OrderService) injector.getInstance(OrderService.class);
+        orderService.completeOrder(shoppingCartService.getByUser(user1));
+        orderService.getOrderHistory(user1).forEach(System.out::println);
     }
 }
