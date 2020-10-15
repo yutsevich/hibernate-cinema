@@ -8,7 +8,7 @@ import com.dev.cinema.model.ShoppingCart;
 import com.dev.cinema.model.User;
 import com.dev.cinema.service.OrderService;
 import com.dev.cinema.service.ShoppingCartService;
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -20,8 +20,11 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order completeOrder(ShoppingCart shoppingCart) {
-        Order order = orderDao.add(new ArrayList<>(shoppingCart.getTickets()),
-                shoppingCart.getUser());
+        Order order = new Order();
+        order.setUser(shoppingCart.getUser());
+        order.setTickets(shoppingCart.getTickets());
+        order.setDateTime(LocalDateTime.now());
+        orderDao.add(order);
         shoppingCartService.clear(shoppingCart);
         return order;
     }

@@ -16,9 +16,11 @@ import com.dev.cinema.service.UserService;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import org.apache.log4j.Logger;
 
 public class Main {
     private static Injector injector = Injector.getInstance("com.dev.cinema");
+    private static final Logger logger = Logger.getLogger(Main.class);
 
     public static void main(String[] args) throws AuthenticationException {
         MovieService movieService = (MovieService) injector.getInstance(MovieService.class);
@@ -26,12 +28,12 @@ public class Main {
         movie1.setTitle("Fast & Furious");
         movie1.setDescription("action");
         movieService.add(movie1);
-        movieService.getAll().forEach(System.out::println);
+        movieService.getAll().forEach(movie -> logger.info(movie.toString() + "is added"));
         Movie movie2 = new Movie();
         movie2.setTitle("Matrix");
         movie2.setDescription("Science fiction");
         movieService.add(movie2);
-        movieService.getAll().forEach(System.out::println);
+        movieService.getAll().forEach(movie -> logger.info(movie.toString() + "is added"));
         CinemaHallService cinemaHallService =
                 (CinemaHallService) injector.getInstance(CinemaHallService.class);
         CinemaHall cinemaHall = new CinemaHall();
@@ -42,7 +44,8 @@ public class Main {
         cinemaHall1.setCapacity(35L);
         cinemaHall1.setDescription("luxury");
         cinemaHallService.add(cinemaHall1);
-        cinemaHallService.getAll().forEach(System.out::println);
+        cinemaHallService.getAll().forEach(cinemaHal ->
+                logger.info(cinemaHal.toString() + "is added"));
         MovieSession movieSession = new MovieSession();
         movieSession.setCinemaHall(cinemaHall);
         movieSession.setMovie(movie2);
@@ -67,7 +70,7 @@ public class Main {
         movieSessionService.add(movieSession3);
         movieSessionService.add(movieSession4);
         movieSessionService.findAvailableSessions(2L, LocalDate.now())
-                .forEach(System.out::println);
+                .forEach(movieSesion -> logger.info(movieSesion.toString() + "is added"));
         UserService userService = (UserService) injector.getInstance(UserService.class);
         User visitor = new User();
         visitor.setEmail("jackie@yandex.com");
@@ -91,7 +94,6 @@ public class Main {
                 (ShoppingCartService) injector.getInstance(ShoppingCartService.class);
 
         User user1 = authenticationService.register("user1@gmail.com", "pass");
-        User user2 = authenticationService.register("user2@gmail.com", "pass");
         System.out.println(userService.findByEmail("user1@gmail.com").toString());
         try {
             System.out.println(authenticationService.login("user2@gmail.com", "pass").toString());
@@ -101,6 +103,7 @@ public class Main {
         OrderService orderService
                 = (OrderService) injector.getInstance(OrderService.class);
         orderService.completeOrder(shoppingCartService.getByUser(user1));
-        orderService.getOrderHistory(user1).forEach(System.out::println);
+        orderService.getOrderHistory(user1).forEach(order ->
+                logger.info(order.toString() + "is added"));
     }
 }
