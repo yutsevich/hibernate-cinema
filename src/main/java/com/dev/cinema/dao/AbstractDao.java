@@ -19,7 +19,7 @@ public interface AbstractDao<T> {
             session.save(entity);
             transaction.commit();
             logger.info(entity.getClass().getSimpleName() + " "
-                    + entity.toString() + "is added");
+                    + entity + "is added");
             return entity;
         } catch (Exception e) {
             if (transaction != null) {
@@ -27,7 +27,7 @@ public interface AbstractDao<T> {
             }
             throw new DataProcessingException("Can not insert "
                     + entity.getClass().getSimpleName()
-                    + entity.toString(), e);
+                    + entity, e);
         } finally {
             if (session != null) {
                 session.close();

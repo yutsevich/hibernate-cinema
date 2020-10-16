@@ -28,12 +28,12 @@ public class Main {
         movie1.setTitle("Fast & Furious");
         movie1.setDescription("action");
         movieService.add(movie1);
-        movieService.getAll().forEach(movie -> logger.info(movie.toString() + "is added"));
+        movieService.getAll().forEach(logger::info);
         Movie movie2 = new Movie();
         movie2.setTitle("Matrix");
         movie2.setDescription("Science fiction");
         movieService.add(movie2);
-        movieService.getAll().forEach(movie -> logger.info(movie.toString() + "is added"));
+        movieService.getAll().forEach(logger::info);
         CinemaHallService cinemaHallService =
                 (CinemaHallService) injector.getInstance(CinemaHallService.class);
         CinemaHall cinemaHall = new CinemaHall();
@@ -44,8 +44,7 @@ public class Main {
         cinemaHall1.setCapacity(35L);
         cinemaHall1.setDescription("luxury");
         cinemaHallService.add(cinemaHall1);
-        cinemaHallService.getAll().forEach(cinemaHal ->
-                logger.info(cinemaHal.toString() + "is added"));
+        cinemaHallService.getAll().forEach(logger::info);
         MovieSession movieSession = new MovieSession();
         movieSession.setCinemaHall(cinemaHall);
         movieSession.setMovie(movie2);
@@ -70,7 +69,7 @@ public class Main {
         movieSessionService.add(movieSession3);
         movieSessionService.add(movieSession4);
         movieSessionService.findAvailableSessions(2L, LocalDate.now())
-                .forEach(movieSesion -> logger.info(movieSesion.toString() + "is added"));
+                .forEach(logger::info);
         UserService userService = (UserService) injector.getInstance(UserService.class);
         User visitor = new User();
         visitor.setEmail("jackie@yandex.com");
@@ -103,7 +102,6 @@ public class Main {
         OrderService orderService
                 = (OrderService) injector.getInstance(OrderService.class);
         orderService.completeOrder(shoppingCartService.getByUser(user1));
-        orderService.getOrderHistory(user1).forEach(order ->
-                logger.info(order.toString() + "is added"));
+        orderService.getOrderHistory(user1).forEach(logger::info);
     }
 }
