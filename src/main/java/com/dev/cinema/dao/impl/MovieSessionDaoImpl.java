@@ -41,6 +41,6 @@ public class MovieSessionDaoImpl extends AbstractDao<MovieSession> implements Mo
 
     @Override
     public MovieSession add(MovieSession session) {
-        return super.addAbstract(session);
+        return super.create(session);
     }
 }

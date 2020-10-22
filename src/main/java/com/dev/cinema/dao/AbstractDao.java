@@ -1,6 +1,5 @@
 package com.dev.cinema.dao;
 
-import com.dev.cinema.dao.impl.CinemaHallDaoImpl;
 import com.dev.cinema.exceptions.DataProcessingException;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
@@ -8,8 +7,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class AbstractDao<T> {
-    private static final Logger logger = Logger.getLogger(CinemaHallDaoImpl.class);
+public abstract class AbstractDao<T> {
+    private static final Logger logger = Logger.getLogger(AbstractDao.class);
     protected final SessionFactory sessionFactory;
 
     @Autowired
@@ -17,7 +16,7 @@ public class AbstractDao<T> {
         this.sessionFactory = sessionFactory;
     }
 
-    public T addAbstract(T entity) {
+    public T create(T entity) {
         Transaction transaction = null;
         Session session = null;
         try {

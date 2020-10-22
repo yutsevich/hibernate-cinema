@@ -27,6 +27,6 @@ public class CinemaHallDaoImpl extends AbstractDao<CinemaHall> implements Cinema
 
     @Override
     public CinemaHall add(CinemaHall cinemaHall) {
-        return super.addAbstract(cinemaHall);
+        return super.create(cinemaHall);
     }
 }

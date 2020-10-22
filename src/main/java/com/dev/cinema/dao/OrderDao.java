@@ -7,5 +7,5 @@ import java.util.List;
 public interface OrderDao {
     List<Order> getByUser(User user);
 
-    void add(Order order);
+    Order add(Order order);
 }

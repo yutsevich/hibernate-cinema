@@ -36,6 +36,6 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
 
     @Override
     public User add(User user) {
-        return super.addAbstract(user);
+        return super.create(user);
     }
 }

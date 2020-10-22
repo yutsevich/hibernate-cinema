@@ -14,6 +14,7 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 @PropertySource("classpath:db.properties")
 @ComponentScan(basePackages = {
         "com.dev.cinema.dao",
+        "com.dev.cinema.security",
         "com.dev.cinema.service"})
 public class AppConfig {
     private final Environment environment;
@@ -39,6 +40,7 @@ public class AppConfig {
         Properties properties = new Properties();
         properties.put("hibernate.show_sql", environment.getProperty("hibernate.show_sql"));
         properties.put("hibernate.hbm2ddl.auto", environment.getProperty("hibernate.hbm2ddl.auto"));
+        sessionFactory.setHibernateProperties(properties);
         sessionFactory.setPackagesToScan("com.dev.cinema.model");
         return sessionFactory;
     }

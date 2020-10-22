@@ -61,7 +61,7 @@ public class ShoppingCartDaoImpl extends AbstractDao<ShoppingCart> implements Sh
     }
 
     @Override
-    public void add(ShoppingCart shoppingCart) {
-        super.addAbstract(shoppingCart);
+    public ShoppingCart add(ShoppingCart shoppingCart) {
+        return super.create(shoppingCart);
     }
 }

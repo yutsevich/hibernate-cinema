@@ -39,7 +39,7 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
     }
 
     @Override
-    public void add(Order order) {
-        super.addAbstract(order);
+    public Order add(Order order) {
+        return super.create(order);
     }
 }

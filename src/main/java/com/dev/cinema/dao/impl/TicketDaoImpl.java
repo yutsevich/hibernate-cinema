@@ -13,7 +13,7 @@ public class TicketDaoImpl extends AbstractDao<Ticket> implements TicketDao {
     }
 
     @Override
-    public void add(Ticket ticket) {
-        super.addAbstract(ticket);
+    public Ticket add(Ticket ticket) {
+        return super.create(ticket);
     }
 }
