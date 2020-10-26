@@ -38,4 +38,11 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
     public User add(User user) {
         return super.create(user);
     }
+
+    @Override
+    public Optional<User> get(Long id) {
+        try (Session session = sessionFactory.openSession()) {
+            return Optional.of(session.get(User.class, id));
+        }
+    }
 }

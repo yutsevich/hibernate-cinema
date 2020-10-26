@@ -3,6 +3,7 @@ package com.dev.cinema.config;
 import java.util.Properties;
 import javax.sql.DataSource;
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -43,5 +44,10 @@ public class AppConfig {
         sessionFactory.setHibernateProperties(properties);
         sessionFactory.setPackagesToScan("com.dev.cinema.model");
         return sessionFactory;
+    }
+
+    @Bean
+    public ModelMapper getModelMapper() {
+        return new ModelMapper();
     }
 }

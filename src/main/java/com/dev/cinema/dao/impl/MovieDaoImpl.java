@@ -5,6 +5,7 @@ import com.dev.cinema.dao.MovieDao;
 import com.dev.cinema.exceptions.DataProcessingException;
 import com.dev.cinema.model.Movie;
 import java.util.List;
+import java.util.Optional;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -30,5 +31,12 @@ public class MovieDaoImpl extends AbstractDao<Movie> implements MovieDao {
     @Override
     public Movie add(Movie movie) {
         return super.create(movie);
+    }
+
+    @Override
+    public Optional<Movie> get(Long id) {
+        try (Session session = sessionFactory.openSession()) {
+            return Optional.of(session.get(Movie.class, id));
+        }
     }
 }
