@@ -48,7 +48,7 @@ public class MovieSessionDaoImpl extends AbstractDao<MovieSession> implements Mo
     @Override
     public Optional<MovieSession> get(Long id) {
         try (Session session = sessionFactory.openSession()) {
-            return Optional.of(session.get(MovieSession.class, id));
+            return Optional.ofNullable(session.get(MovieSession.class, id));
         }
     }
 }
